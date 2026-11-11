@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آکادمی زبان نکسلور | Nexlore Academy</title>
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Identity Services (Real Google Auth) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-box">
+                <img src="logo.jpg" alt="Nexlore Logo" class="nav-logo" id="mainLogo">
+                <div class="logo-text">
+                    <span class="brand-name">NEXLORE</span>
+                    <span class="brand-sub">ACADEMY</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#hero" class="active">صفحه اصلی</a>
+                <a href="#courses">دوره‌ها</a>
+                <a href="#why-us">درباره ما</a>
+                <a href="#contact">تماس با ما</a>
+                <button class="admin-login-btn" onclick="openAdminAuthModal()">
+                    <i class="fa-solid fa-user-shield"></i> ورود پرسنل
+                </button>
+            </nav>
+
+            <div class="auth-buttons">
+                <div id="userWelcome" class="user-welcome hidden">
+                    <i class="fa-solid fa-user-circle"></i> <span id="userNameDisplay">کاربر گرامی</span>
+                    <button onclick="logoutUser()" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+                <button id="authModalBtn" class="btn-primary-glow" onclick="openAuthModal()">
+                    <i class="fa-solid fa-user-plus"></i> ثبت‌نام / ورود
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">NEXLORE ACADEMY</div>
+            <h1 class="hero-title">آکادمی زبان <span class="highlight">نکسلور</span></h1>
+            <h2 class="hero-subtitle">جایی برای فراتر رفتن از زبان</h2>
+            <p class="hero-desc">با دوره‌های تخصصی و مدرن، زبان جدید را یاد بگیرید، اعتماد به نفس خود را تقویت کنید و به دنیای جدیدی از فرصت‌ها دست پیدا کنید.</p>
+            <div class="hero-actions">
+                <a href="#courses" class="btn-hero-primary"><i class="fa-solid fa-compass"></i> مشاهده دوره‌ها</a>
+                <button class="btn-hero-secondary" onclick="openAIMatcher()"><i class="fa-solid fa-wand-magic-sparkles"></i> هوش مصنوعی انتخاب استاد</button>
+            </div>
+        </div>
+        <div class="hero-banner">
+            <div class="banner-card">
+                <img src="logo.jpg" alt="Nexlore Emblem" class="banner-img">
+                <div class="banner-slogan">Learn • Grow • Connect</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="why-us-section">
+        <div class="container">
+            <h2 class="section-title">چرا آکادمی نکسلور؟</h2>
+            <p class="section-subtitle">تفاوت ما با سایر موسسات آنلاین در متدولوژی انتخاب استاد و آموزش اختصاصی است</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <h3>انتخاب استاد بر اساس شخصیت</h3>
+                    <p>ما متد تدریس و اخلاق استاد را با ویژگی‌های روحی و هدف شما هوشمندانه تطبیق می‌دهیم.</p>
+                </div>
+                <div class="feature-card highlight-card">
+                    <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+                    <h3>۳ جلسه آزمایشی رایگان!</h3>
+                    <p>شما فرصت دارید ۳ بار با ۳ استاد مختلف به صورت رایگان جلسه اول داشته باشید تا روش کار و خصوصیات استاد را بسنجید.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-comments"></i></div>
+                    <h3>جلسات Free Discussion رایگان</h3>
+                    <p>شرکت در برنامه‌های مکالمه آزاد گروهی با سایر زبان‌آموزان آکادمی به صورت کاملا رایگان.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses-section">
+        <div class="container">
+            <div class="courses-header">
+                <div>
+                    <h2 class="section-title">دوره‌های ما</h2>
+                    <p class="section-subtitle">با توجه به سطح و هدف شما، بهترین دوره را انتخاب کنید.</p>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Dynamic Courses rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Matcher Floating Button -->
+    <button class="floating-ai-btn" onclick="openAIMatcher(null)">
+        <i class="fa-solid fa-brain"></i>
+        <span>هوش مصنوعی انتخاب استاد</span>
+    </button>
+
+    <!-- Advisory Floating Button -->
+    <button class="floating-advisory-btn" onclick="openAdvisoryModal()">
+        <i class="fa-solid fa-headset"></i>
+        <span>درخواست مشاوره</span>
+    </button>
+
+    <!-- Modals -->
+
+    <!-- AI Matcher Modal -->
+    <div id="aiModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('aiModal')">&times;</button>
+            <div id="aiStepContainer">
+                <!-- AI dynamic steps rendered via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Invoice & Selection Modal -->
+    <div id="courseModal" class="modal-overlay">
+        <div class="modal-card modal-lg">
+            <button class="modal-close" onclick="closeModal('courseModal')">&times;</button>
+            <div id="courseModalContent">
+                <!-- Invoice Content rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Gateway Simulator Modal -->
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-card payment-card">
+            <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
+            <div class="payment-header">
+                <img src="https://shaparak.ir/assets/images/logo.png" alt="Shaparak Logo" class="shaparak-logo" onerror="this.src='https://img.icons8.com/color/96/bank-cards.png'">
+                <h3>درگاه پرداخت الکترونیک شاپرک</h3>
+                <p>اتصال امن به شبکه‌ی شتاب</p>
+            </div>
+            <div class="payment-body">
+                <div class="payment-timer">زمان باقی‌مانده: <span id="payTimer">09:59</span></div>
+                <div class="payment-summary" id="paySummary">
+                    <!-- Dynamic payment invoice sum -->
+                </div>
+                <form id="paymentForm" onsubmit="processPayment(event)">
+                    <div class="form-group">
+                        <label>شماره کارت (۱۶ رقمی)</label>
+                        <input type="text" maxlength="16" placeholder="6037..........." required pattern="\d{16}">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>CVV2</label>
+                            <input type="password" maxlength="4" placeholder="***" required pattern="\d{3,4}">
+                        </div>
+                        <div class="form-group">
+                            <label>انقضا</label>
+                            <input type="text" placeholder="MM/YY" style="width:100px;" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>رمز دوم پویا</label>
+                        <div class="otp-input">
+                            <input type="password" placeholder="******" required>
+                            <button type="button" class="btn-otp" onclick="alert('رمز پویا به شماره همراه شما پیامک شد.')">دریافت رمز پویا</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-pay-submit"><i class="fa-solid fa-lock"></i> پرداخت نهایی و تکمیل ثبت‌نام</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advisory Modal -->
+    <div id="advisoryModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('advisoryModal')">&times;</button>
+            <h3>درخواست مشاوره رایگان</h3>
+            <p>اطلاعات خود را وارد کنید تا مشاوران نکسلور با شما تماس بگیرند.</p>
+            <form id="advisoryForm" onsubmit="submitAdvisory(event)">
+                <div class="form-group">
+                    <label>نام و نام خانوادگی</label>
+                    <input type="text" id="advName" required placeholder="مثال: علی محمدی">
+                </div>
+                <div class="form-group">
+                    <label>شماره تماس</label>
+                    <input type="tel" id="advPhone" required placeholder="09123456789" pattern="09\d{9}">
+                </div>
+                <button type="submit" class="btn-primary-glow">ثبت درخواست مشاوره</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Auth Modal -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('authModal')">&times;</button>
+            <h3>ورود / ثبت‌نام در نکسلور</h3>
+            <form id="userAuthForm" onsubmit="submitUserAuth(event)">
+                <div class="form-group">
+                    <label>نام کامل</label>
+                    <input type="text" id="authName" required placeholder="نام شما">
+                </div>
+                <div class="form-group">
+                    <label>ایمیل</label>
+                    <input type="email" id="authEmail" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
+                    <label>شماره همراه</label>
+                    <input type="tel" id="authPhone" required placeholder="09123456789">
+                </div>
+                <button type="submit" class="btn-primary-glow">تکمیل ثبت‌نام</button>
+            </form>
+            <div class="divider">یا</div>
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+    </div>
+
+    <!-- Admin Auth Modal -->
+    <div id="adminAuthModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('adminAuthModal')">&times;</button>
+            <h3><i class="fa-solid fa-lock"></i> ورود به پنل مدیریت</h3>
+            <form onsubmit="submitAdminAuth(event)">
+                <div class="form-group">
+                    <label>نام کاربری</label>
+                    <input type="text" id="adminUser" required placeholder="نام کاربری...">
+                </div>
+                <div class="form-group">
+                    <label>رمز عبور</label>
+                    <input type="password" id="adminPass" required placeholder="رمز عبور...">
+                </div>
+                <button type="submit" class="btn-primary-glow">ورود به سیستم</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" class="modal-overlay">
+        <div class="modal-card modal-lg">
+            <button class="modal-close" onclick="closeModal('adminPanelModal')">&times;</button>
+            <h2><i class="fa-solid fa-chart-line"></i> پنل مدیریت دیتابیس نکسلور</h2>
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchAdminTab('usersTab')">کاربران ثبت‌نامی</button>
+                <button class="tab-btn" onclick="switchAdminTab('advisoryTab')">درخواست‌های مشاوره</button>
+                <button class="tab-btn" onclick="switchAdminTab('aiTab')">تحلیل‌های AI</button>
+            </div>
+            <div id="usersTab" class="tab-content active">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>نام</th><th>ایمیل</th><th>شماره تماس</th><th>تاریخ ثبت</th></tr>
+                    </thead>
+                    <tbody id="adminUsersTable"></tbody>
+                </table>
+            </div>
+            <div id="advisoryTab" class="tab-content">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>نام</th><th>شماره تماس</th><th>تاریخ درخواست</th></tr>
+                    </thead>
+                    <tbody id="adminAdvisoryTable"></tbody>
+                </table>
+            </div>
+            <div id="aiTab" class="tab-content">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>زبان</th><th>هدف</th><th>استاد انتخابی</th><th>تاریخ</th></tr>
+                    </thead>
+                    <tbody id="adminAiTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
